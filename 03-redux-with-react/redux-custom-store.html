@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Redux Lessons - 03 React with Redux</title>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript" src="https://fb.me/react-with-addons-0.14.6.js"></script>
+  <script type="text/javascript" src="https://fb.me/react-dom-0.14.6.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/redux/3.7.2/redux.min.js"></script>
+</head>
+<body>
+<div id="root">
+</div>
+
+<script type="text/babel">
+  const {createStore} = Redux;
+
+  const counterRootReducer = (state = {count: 0}, action)=>{
+    switch(action.type){
+      case "INCREMENT":
+        return {count: state.count +1};
+      case "DECREMENT":
+        return {count: state.count -1};
+      default:
+        return state;
+    }
+  };
+
+  const store = createStore(counterRootReducer);
+  const ReactRootComponent = (props)=> {
+    return ( <div>
+      <button onClick={props.increment}>++</button>
+      <button onClick={props.decrement}>--</button>
+      <h1>{props.count} </h1>;
+  </div>)};
+
+  const render = ()=> {
+    ReactDOM.render(<ReactRootComponent
+    count={store.getState().count}
+    increment={()=> store.dispatch({type: "INCREMENT"})}
+    decrement={()=> store.dispatch({type: "DECREMENT"})} />, document.getElementById("root"));
+  };
+
+  store.subscribe(render);
+  render();
+
+  window.decrement = ()=> store.dispatch({type: "DECREMENT"});
+  window.increment = ()=> store.dispatch({type: "INCREMENT"});
+</script>
+</body>
+</html>
