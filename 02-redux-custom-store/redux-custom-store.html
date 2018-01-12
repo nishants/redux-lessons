@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Redux Lessons - 01 How Store Works</title>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+<div>
+  <button onclick="increment()">++</button>
+  <button onclick="decrement()">--</button>
+</div>
+<br>
+
+<br>
+<h1 id="counter"></h1>
+
+
+<script type="text/babel">
+  const createStore = (rootReducer)=> {
+    let state,
+        listeners = [];
+    const getState = ()=> state;
+    const subscribe = (onStateChange)=> {
+      listeners.push(onStateChange);
+    };
+    const dispatch = (action)=> {
+      state = rootReducer(state, action);
+      listeners.forEach((callback)=> callback());
+    };
+    return {getState, subscribe, dispatch};
+  };
+
+  const counterRootReducer = (state = {count: 0}, action)=>{
+    switch(action.type){
+      case "INCREMENT":
+        return {count: state.count +1};
+      case "DECREMENT":
+        return {count: state.count -1};
+      default:
+        return state;
+    }
+  };
+
+  const store = createStore(counterRootReducer);
+  const render = ()=> $("#counter").prepend(`<div>count: ${store.getState().count}</div>`);
+
+  store.subscribe(render);
+
+  window.decrement = ()=> store.dispatch({type: "DECREMENT"});
+  window.increment = ()=> store.dispatch({type: "INCREMENT"});
+</script>
+</body>
+</html>

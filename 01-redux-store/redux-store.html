@@ -33,7 +33,8 @@
     };
 
     const store = createStore(counterRootReducer);
-    store.subscribe(()=> $("#counter").prepend(`<div>count: ${store.getState().count}</div>`));
+    const render = ()=> $("#counter").prepend(`<div>count: ${store.getState().count}</div>`);
+    store.subscribe(render);
 
     window.decrement = ()=> store.dispatch({type: "DECREMENT"});
     window.increment = ()=> store.dispatch({type: "INCREMENT"});
