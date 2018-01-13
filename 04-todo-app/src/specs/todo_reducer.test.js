@@ -33,12 +33,22 @@ describe("TODO Reducer", ()=>{
           id: 0,
           name: 'Go to Jogging',
           complete: false
-        }],
+        },
+          {
+            id: 1,
+            name: 'Buy Breakfast',
+            complete: false
+          }],
         expectedState = [{
           id: 0,
           name: 'Go to Jogging',
           complete: true
-        }];
+        },
+          {
+            id: 1,
+            name: 'Buy Breakfast',
+            complete: false
+          }];
 
     deepFreeze(initialState);
     deepFreeze(action);

@@ -1,21 +1,33 @@
-import Redux from 'redux';
 
-const todoReducer = (state=[], action)=>{
+const todoTaskReducer = (todo, action) =>{
   switch(action.type){
-    case 'ADD_TODO' :
-      return state.concat({
+    case 'ADD_TODO':
+      return {
         id  : action.taskID,
         name: action.taskName,
         complete: false
-      });
+      };
     case 'FINISHED_TODO':
-      return state.map((task)=>task.id === action.taskID ? {
-            ...task,
-            complete : true} : task
-      );
-    default :
-      return state;
+      return {
+        ...todo,
+        complete : true
+      };
+    default:
+      return todo;
   }
-}
+};
 
-export default todoReducer;
+const todoListReducer = (todoList=[], action)=>{
+  switch(action.type){
+    case 'ADD_TODO' :
+      return todoList.concat(todoTaskReducer(undefined, action));
+    case 'FINISHED_TODO':
+      return todoList.map((task)=> {
+        return task.id === action.taskID ? todoTaskReducer(task, action) : task
+      });
+    default :
+      return todoList;
+  }
+};
+
+export default todoListReducer;
