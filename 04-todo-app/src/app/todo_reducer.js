@@ -1,5 +1,5 @@
-import todoListReducer from './todo_list_reducer';
-import visibilityFilterReducer from './visiblity_filer_reducer';
+import todo from './todo_list_reducer';
+import visibilityFilter from './visiblity_filer_reducer';
 import {combineReducers} from 'redux';
 
 /*
@@ -7,14 +7,14 @@ import {combineReducers} from 'redux';
  ----------------------------------------
 const toddReducer = (state = {}, action)=> {
     return {
-      todo: todoListReducer(state.todo, action),
-      visibilityFilter: visibilityFilterReducer(state.visibilityFilter, action),
+      todo: todo(state.todo, action),
+      visibilityFilter: visibilityFilter(state.visibilityFilter, action),
     }
 };
 export default toddReducer;
 */
 
 export default combineReducers({
-  todo: todoListReducer,
-  visibilityFilter: visibilityFilterReducer,
+  todo,
+  visibilityFilter,
 });
