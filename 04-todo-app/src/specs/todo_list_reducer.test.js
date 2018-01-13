@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import deepFreeze from 'deep-freeze';
-import todoReducer from './../app/todo_reducer';
+import todoReducer from './../app/todo_list_reducer';
 
 describe("TODO Reducer", ()=>{
   it('should initialize state', () => {

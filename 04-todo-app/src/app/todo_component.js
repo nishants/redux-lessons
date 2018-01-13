@@ -24,14 +24,18 @@ class TODO extends React.Component {
   createTask(task){
       return(
           <li key={task.id}>
-            <input type="checkbox" onChange={(e)=>this.setTaskStatus(task, e.target.checked)}/>
+            <input type="checkbox" checked={task.complete} onChange={(e)=>this.setTaskStatus(task, e.target.checked)}/>
             <label>{task.name} {task.complete ? "Complete" : "Pending"}</label>
           </li>
       );
   }
 
+  showCompletedTasks(value){
+    this.props.showCompletedTasks(value);
+  }
+
   render() {
-    const allTasks = this.props.tasks.map((task)=> this.createTask(task));
+    const visibleTaskList = this.props.tasks.filter(task=> this.props.visibilityFilter.showCompleted || !task.complete).map((task)=> this.createTask(task));
 
     const newTaskName   = this.state.newTaskName;
     return (
@@ -42,9 +46,13 @@ class TODO extends React.Component {
             <button disabled={newTaskName.length === 0} onClick={()=> this.addTask()}> Add Task</button>
           </div>
           <div>
+            <h5>Filter</h5>
+              <label>Show Completed </label> <input type="checkbox" onChange={(e)=>this.showCompletedTasks(e.target.checked)}/>
+          </div>
+          <div>
             <h3>All Tasks</h3>
             <ul>
-              {allTasks}
+              {visibleTaskList}
             </ul>
           </div>
         </div>

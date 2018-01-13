@@ -27,10 +27,24 @@ var render = ()=> {
         store.dispatch({
           type    : "ADD_TODO",
           taskName: name,
-          taskID  : state.length
+          taskID  : state.todo.length
         })
+      },
+      showCompletedTasks = (showCompleted)=>{
+        store.dispatch({
+          type: "SET_VISIBILITY_FILTER",
+          showCompleted: showCompleted
+        });
       };
-  ReactDOM.render(<TODO tasks={state} taskPending={taskPending} addTask={addTask} taskCompleted={taskCompleted}/>, document.getElementById('root'));
+
+  ReactDOM.render(
+      <TODO tasks={state.todo}
+            visibilityFilter={state.visibilityFilter}
+            taskPending={taskPending}
+            addTask={addTask}
+            taskCompleted={taskCompleted}
+            showCompletedTasks={showCompletedTasks}/>,
+      document.getElementById('root'));
 };
 store.subscribe(render);
 render();
