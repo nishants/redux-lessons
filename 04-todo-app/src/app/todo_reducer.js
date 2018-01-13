@@ -12,6 +12,11 @@ const todoTaskReducer = (todo, action) =>{
         ...todo,
         complete : true
       };
+    case 'PENDING_TODO':
+      return {
+        ...todo,
+        complete : false
+      };
     default:
       return todo;
   }
@@ -22,6 +27,10 @@ const todoListReducer = (todoList=[], action)=>{
     case 'ADD_TODO' :
       return todoList.concat(todoTaskReducer(undefined, action));
     case 'FINISHED_TODO':
+      return todoList.map((task)=> {
+        return task.id === action.taskID ? todoTaskReducer(task, action) : task
+      });
+    case 'PENDING_TODO':
       return todoList.map((task)=> {
         return task.id === action.taskID ? todoTaskReducer(task, action) : task
       });

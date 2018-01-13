@@ -55,5 +55,38 @@ describe("TODO Reducer", ()=>{
     expect(todoReducer(initialState, action)).toEqual(expectedState);
   });
 
+  it('should mark item as pending', () => {
+    const
+        action = {
+          type: "PENDING_TODO",
+          taskID: 0,
+          taskName: 'Go to Jogging'
+        },
+        initialState = [{
+          id: 0,
+          name: 'Go to Jogging',
+          complete: true
+        },
+          {
+            id: 1,
+            name: 'Buy Breakfast',
+            complete: false
+          }],
+        expectedState = [{
+          id: 0,
+          name: 'Go to Jogging',
+          complete: false
+        },
+          {
+            id: 1,
+            name: 'Buy Breakfast',
+            complete: false
+          }];
+
+    deepFreeze(initialState);
+    deepFreeze(action);
+    expect(todoReducer(initialState, action)).toEqual(expectedState);
+  });
+
 });
 
