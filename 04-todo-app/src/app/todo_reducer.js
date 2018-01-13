@@ -3,7 +3,7 @@ import visibilityFilter from './visiblity_filer_reducer';
 import {combineReducers} from 'redux';
 
 /*
- Custom implementation of combine reducer
+ Without using combineReducer
  ----------------------------------------
 const toddReducer = (state = {}, action)=> {
     return {
@@ -14,7 +14,31 @@ const toddReducer = (state = {}, action)=> {
 export default toddReducer;
 */
 
+/*
+Custom combineReducer
+----------------------------------------
+
+const combineReducers = (reducers)=>{
+  var keyReducerMapping = [];
+  for(var key in reducers){
+    keyReducerMapping.push({
+      key: key,
+      reducer: reducers[key]
+    });
+  }
+  return (state = {}, action)=>{
+    var newState = {};
+    keyReducerMapping.forEach((mapping)=> {
+      newState[mapping.key] = mapping.reducer(state[mapping.key], action);
+    });
+    return newState;
+  };
+};
+*/
+
 export default combineReducers({
   todo,
   visibilityFilter,
 });
+
+
