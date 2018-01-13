@@ -3,7 +3,10 @@ import Redux from 'redux';
 const todoReducer = (state=[], action)=>{
   switch(action.type){
     case 'ADD_TODO' :
-      return null;
+      return state.concat({
+        id  : action.taskID,
+        name: action.taskName
+      });
     default :
       return state;
   }
