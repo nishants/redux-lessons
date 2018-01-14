@@ -1,4 +1,4 @@
-import todo from './todo_list_reducer';
+import todo from './todo_list/todo_list_reducer';
 import visibilityFilter from './visiblity_filer_reducer';
 import {combineReducers} from 'redux';
 
