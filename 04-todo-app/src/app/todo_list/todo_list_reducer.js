@@ -1,3 +1,5 @@
+import TODO from './todo_state';
+
 const todoTaskReducer = (todo, action) =>{
   switch(action.type){
     case 'ADD_TODO':
@@ -20,23 +22,42 @@ const todoTaskReducer = (todo, action) =>{
       return todo;
   }
 };
+//
+// const todoListReducer = (todoList=[], action)=>{
+//   switch(action.type){
+//     case 'ADD_TODO' :
+//       return todoList.concat(todoTaskReducer(undefined, action));
+//     case 'FINISHED_TODO':
+//       return todoList.map((task)=> {
+//         return task.id === action.taskID ? todoTaskReducer(task, action) : task
+//       });
+//     case 'PENDING_TODO':
+//       return todoList.map((task)=> {
+//         return task.id === action.taskID ? todoTaskReducer(task, action) : task
+//       });
+//     default :
+//       return todoList;
+//   }
+// };
 
-const todoListReducer = (todoList=[], action)=>{
+
+const todoListReducer = (state=TODO.initialState(), action)=>{
   switch(action.type){
     case 'ADD_TODO' :
-      return todoList.concat(todoTaskReducer(undefined, action));
+      return TODO.addTask(state, action.taskName )
     case 'FINISHED_TODO':
-      return todoList.map((task)=> {
+      return state.map((task)=> {
         return task.id === action.taskID ? todoTaskReducer(task, action) : task
       });
     case 'PENDING_TODO':
-      return todoList.map((task)=> {
+      return state.map((task)=> {
         return task.id === action.taskID ? todoTaskReducer(task, action) : task
       });
     default :
-      return todoList;
+      return state;
   }
 };
 
 export default todoListReducer;
+
 
