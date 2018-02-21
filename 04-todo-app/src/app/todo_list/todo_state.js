@@ -1,15 +1,15 @@
-let TODO = {
+export default {
   initialState: () => [],
 
   addTask: (state, name)=> state.concat({id: state.length, name: name}),
 
-  finishTask: (state, taskId) => (
+  setFinished: (state, taskId) => (
       state.map(task=> task.id === taskId ? {...task, complete: true} : task)
   ),
 
-  setToPending: (state, taskId) => (
+  setPending: (state, taskId) => (
       state.map(task=> task.id === taskId ? {...task, complete: false} : task)
-  )
-};
+  ),
 
-export default TODO
+  pending: state=> state.filter(task=> !task.complete)
+};

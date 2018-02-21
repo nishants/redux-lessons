@@ -5,14 +5,12 @@ const todoListReducer = (state=TODO.initialState(), action)=>{
     case 'ADD_TODO' :
       return TODO.addTask(state, action.taskName )
     case 'FINISHED_TODO':
-      return TODO.finishTask(state, action.taskID );
+      return TODO.setFinished(state, action.taskID );
     case 'PENDING_TODO':
-      return TODO.setToPending(state, action.taskID );
+      return TODO.setPending(state, action.taskID );
     default :
       return state;
   }
 };
 
 export default todoListReducer;
-
-

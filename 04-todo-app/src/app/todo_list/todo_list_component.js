@@ -1,20 +1,21 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import TODO from './todo_state';
 
 const TodoList = ({tasks, showCompletedTasks, toggleTodo})=> {
-  const createTask = (task) => (
+  const toListElement = (task) => (
       <li key={task.id}>
         <input type="checkbox" checked={task.complete} onChange={(e)=> toggleTodo(task)}/>
         <label>{task.name} {task.complete ? "Complete" : "Pending"}</label>
       </li>
   );
   const visibleTaskList =
-      tasks
-          .filter(task=> showCompletedTasks || !task.complete)
-          .map((task)=> createTask(task));
+      showCompletedTasks ? tasks
+      : TODO.pending(tasks);
+
   return (
       <ul className="todo-list">
-        {visibleTaskList}
+        {visibleTaskList.map(toListElement)}
       </ul>
   );
 }
